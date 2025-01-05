@@ -21,9 +21,8 @@ function BookList() {
                         >
                             <div className="flex justify-between items-center">
                                 <div>
-                                    {++i}. Название книги:
-                                    <strong>{book.title}</strong> Автор
-                                    книги:&nbsp;
+                                    {++i}. Название книги:{" "}
+                                    <strong>{book.title}</strong> | Автор книги:{" "}
                                     <strong>{book.author}</strong>
                                 </div>
                                 <div>

@@ -44,7 +44,7 @@ function BookForm() {
                         id="title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        className=" w-4/5 border mb-2.5 p-2 rounded-[3px] border-solid border-[#ccc]"
+                        className="w-4/5 border mb-2.5 p-2 rounded-[3px] border-solid border-[#ccc]"
                     />
                 </div>
                 <div>

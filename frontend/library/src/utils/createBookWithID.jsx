@@ -1,8 +1,8 @@
 import uniqid from "uniqid";
 
-const createBookWithID = (book) => {
+const createBookWithID = (newBook) => {
     return {
-        ...book,
+        ...newBook,
         isFavorite: false,
         id: uniqid(),
     };

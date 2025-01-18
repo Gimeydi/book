@@ -9,7 +9,7 @@ function App() {
                 <h1 className="font-bold text-4xl">Book Library App</h1>
             </header>
 
-            <main className="flex justify-between w-4/5 mx-auto my-0">
+            <main className="xl:flex justify-between mx-auto my-0">
                 <div className="flex-1 basis-[35%] flex items-center self-start">
                     <BookForm />
                 </div>

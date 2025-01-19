@@ -1,5 +1,6 @@
 import React from "react";
 import uniqid from "uniqid";
+
 import { BsBookmarkHeart } from "react-icons/bs";
 import { BsBookmarkHeartFill } from "react-icons/bs";
 
@@ -49,6 +50,22 @@ function BookList() {
         return matchesTitle && matchesAuthor && matchesFavorit;
     });
 
+    const highlightMatch = (text, filter) => {
+        if (!filter) return text;
+
+        const regex = new RegExp(`(${filter})`, "gi");
+        return text.split(regex).map((substring) => {
+            if (substring.toLowerCase() === filter.toLowerCase()) {
+                return (
+                    <span key={uniqid()} className="bg-yellow-400">
+                        {substring}
+                    </span>
+                );
+            }
+            return substring;
+        });
+    };
+
     // <== Functions ==>
 
     const dispatch = useDispatch();
@@ -68,8 +85,19 @@ function BookList() {
                             <div className="flex justify-between items-center">
                                 <div>
                                     {++i}. Название книги:{" "}
-                                    <strong>{book.title}</strong> | Автор книги:{" "}
-                                    <strong>{book.author}</strong>
+                                    <strong>
+                                        {highlightMatch(
+                                            book.title,
+                                            titleFilter
+                                        )}
+                                    </strong>{" "}
+                                    | Автор книги:{" "}
+                                    <strong>
+                                        {highlightMatch(
+                                            book.author,
+                                            authorFilter
+                                        )}
+                                    </strong>
                                 </div>
                                 <div className="flex items-center gap-3">
                                     <div>

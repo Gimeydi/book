@@ -7,6 +7,7 @@ import booksData from "../../data/books.json";
 import createBookWithID from "../../utils/createBookWithID";
 
 import { setAddBook, fetchBook } from "../../redux/slices/bookFormSlice";
+import { setError } from "../../redux/slices/errorSlice";
 
 function BookForm() {
     const [title, setTitle] = useState("");
@@ -27,6 +28,8 @@ function BookForm() {
 
             setTitle("");
             setAuthor("");
+        } else {
+            dispatch(setError("Вы не добавили название книги и автора книги"));
         }
     };
 

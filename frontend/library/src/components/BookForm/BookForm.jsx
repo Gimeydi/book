@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import booksData from "../../data/books.json";
 import createBookWithID from "../../utils/createBookWithID";
 
-import { setAddBook } from "../../redux/slices/bookFormSlice";
+import { setAddBook, thunkFunction } from "../../redux/slices/bookFormSlice";
 
 function BookForm() {
     const [title, setTitle] = useState("");
@@ -17,13 +17,13 @@ function BookForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const newBook = {
-            title: title,
-            author: author,
-        };
+        // const newBook = {
+        //     title: title,
+        //     author: author,
+        // };
 
         if (title && author) {
-            dispatch(setAddBook(createBookWithID(newBook)));
+            dispatch(setAddBook(createBookWithID({ title, author }, "manual")));
 
             setTitle("");
             setAuthor("");
@@ -34,7 +34,11 @@ function BookForm() {
         const randomIndex = Math.floor(Math.random() * booksData.length);
         const randomBook = booksData[randomIndex];
 
-        dispatch(setAddBook(createBookWithID(randomBook)));
+        dispatch(setAddBook(createBookWithID(randomBook, "random")));
+    };
+
+    const handleAddRandomBookViaAPI = () => {
+        dispatch(thunkFunction);
     };
 
     return (
@@ -77,11 +81,18 @@ function BookForm() {
                         Добавить книгу
                     </button>
                     <button
-                        type="submit"
+                        type="button"
                         onClick={handleAddRandomBook}
                         className="bg-[#007bff] text-white cursor-pointer transition-[background-color] duration-[0.3s] ease-[ease] m-2.5 px-3 py-2 rounded-[3px] border-[none]"
                     >
                         Добавить случайную книгу
+                    </button>
+                    <button
+                        type="button"
+                        onClick={handleAddRandomBookViaAPI}
+                        className="bg-[#007bff] text-white cursor-pointer transition-[background-color] duration-[0.3s] ease-[ease] m-2.5 px-3 py-2 rounded-[3px] border-[none]"
+                    >
+                        Получить книгк с API
                     </button>
                 </div>
             </form>

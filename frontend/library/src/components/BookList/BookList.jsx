@@ -97,7 +97,8 @@ function BookList() {
                                             book.author,
                                             authorFilter
                                         )}
-                                    </strong>
+                                    </strong>{" "}
+                                    ({book.source})
                                 </div>
                                 <div className="flex items-center gap-3">
                                     <div>

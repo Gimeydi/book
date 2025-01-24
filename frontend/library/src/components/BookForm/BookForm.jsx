@@ -1,6 +1,5 @@
 import { useState } from "react";
 import uniqid from "uniqid";
-
 import { FaSpinner } from "react-icons/fa";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -9,13 +8,15 @@ import booksData from "../../data/books.json";
 import createBookWithID from "../../utils/createBookWithID";
 
 import { setAddBook, fetchBook } from "../../redux/slices/bookFormSlice";
+import { selectIsloadingViaAPI } from "../../redux/slices/bookFormSlice";
+
 import { setError } from "../../redux/slices/errorSlice";
 
 function BookForm() {
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
 
-    const [isLoading, setIsLoading] = useState(false);
+    const isLoadingViaAPI = useSelector(selectIsloadingViaAPI);
 
     const dispatch = useDispatch();
 
@@ -44,15 +45,16 @@ function BookForm() {
         dispatch(setAddBook(createBookWithID(randomBook, "random")));
     };
 
-    const handleAddRandomBookViaAPI = async () => {
-        try {
-            setIsLoading(true);
-            await dispatch(
-                fetchBook("http://localhost:4000/random-book-delayed")
-            );
-        } finally {
-            setIsLoading(false);
-        }
+    const handleAddRandomBookViaAPI = () => {
+        dispatch(fetchBook("http://localhost:4000/random-book-delayed"));
+        // try {
+        //     setIsLoading(true);
+        //     await dispatch(
+        //         fetchBook("http://localhost:4000/random-book-delayed")
+        //     );
+        // } finally {
+        //     setIsLoading(false);
+        // }
     };
 
     return (
@@ -106,9 +108,9 @@ function BookForm() {
                         type="button"
                         onClick={handleAddRandomBookViaAPI}
                         className="bg-[#007bff] text-white cursor-pointer transition-[background-color] duration-[0.3s] ease-[ease] m-2.5 px-3 py-2 rounded-[3px] border-[none]"
-                        disabled={isLoading}
+                        disabled={isLoadingViaAPI}
                     >
-                        {isLoading ? (
+                        {isLoadingViaAPI ? (
                             <div className="flex items-center">
                                 <span>Книга загружается...</span>
                                 <FaSpinner className="animate-spin ml-2" />
